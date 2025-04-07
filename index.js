@@ -2,10 +2,15 @@ require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const Redis = require("ioredis");
- 
+const cors = require('cors');
 const app = express();
 const PORT = 3000;
 const redis = new Redis(process.env.REDIS_URL);
+
+const allowedOrigin = process.env.PRODUCTION_URL;
+app.use(cors({
+    origin: allowedOrigin
+}));
 // Initialize Redis
 // const redis = new Redis({ 
 //     url:process.env.REDIS_URL,
