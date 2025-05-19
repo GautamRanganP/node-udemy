@@ -38,7 +38,11 @@ app.use(cors({
 const base64Credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
 // Function to fetch data from Udemy API
 const fetchUdemyData = async (query) => {
-  const url = `${process.env.UDEMY_API_URL}?from_date=2025-01-01&to_date=2025-12-12&user_email=${query}`;
+  const currentDate = new Date();
+  const formattedDate = currentDate.getFullYear() + '-' +
+                      String(currentDate.getMonth() + 1).padStart(2, '0') + '-' +
+                      String(currentDate.getDate()).padStart(2, '0');
+  const url = `${process.env.UDEMY_API_URL}?from_date=${formattedDate}&to_date=2025-12-12&user_email=${query}`;
   const response = await axios.get(url,{
     headers: {
       Authorization: `Basic ${base64Credentials}`,
