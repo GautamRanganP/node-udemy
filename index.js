@@ -66,9 +66,11 @@ app.get("/learninghours", async (req, res) => {
     
     // Fetch fresh data from Udemy API
     console.log("Fetching from Udemy API...");
-   const currentDate = new Date();
+  const currentDate = new Date();
 const adjustedDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 4, 1); // Adjust month and set day to 1
-adjustedDate.setDate(3); // Explicitly set the day to 3
+
+adjustedDate.setDate(currentDate.getDate() + 2);
+
 const formattedDate = adjustedDate.getFullYear() + '-' +
                       String(adjustedDate.getMonth() + 1).padStart(2, '0') + '-' +
                       String(adjustedDate.getDate()).padStart(2, '0');
