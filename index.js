@@ -37,7 +37,7 @@ app.use(cors({
 const course_ID = [1219332, 6102963, 5170404, 3829288, 4967038, 5296886, 5281528, 6088953, 5521188, 2084384, 5255276, 5345662, 5117770, 4323374, 5534098, 5474756, 5281486, 5424682, 5451870, 6287035, 6218639, 3100552, 5624824, 6238245, 6249369, 6581503, 5713006, 5609878]
 const base64Credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
 // Function to fetch data from Udemy API
-// const fetchUdemyData = async (query,formattedDate) => {
+// const fetchUdemyData = async (query) => {
 //   const url = `${process.env.UDEMY_API_URL}?from_date=2025-01&to_date=2025-12&user_email=${query}`;
 //   const response = await axios.get(url,{
 //     headers: {
@@ -109,7 +109,7 @@ app.get("/learninghours", async (req, res) => {
     }
     // Fetch fresh data from Udemy API
     console.log("Fetching from Udemy API...");
-    const data = await fetchUdemyData(email,formattedDate);
+    const data = await fetchUdemyData(email);
     // Store data in Redis with expiry (e.g., 5 minutes)
     await redis.set(email, JSON.stringify(data), "EX", process.env.CACHE_EXPIRY);
     
