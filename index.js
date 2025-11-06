@@ -91,7 +91,18 @@ const fetchUdemyData = async (query) => {
   if (results[1].status === "fulfilled") {
     const lookUpIds = new Set(course_ID.map(c => c));
     response.data2 = results[1].value.data
-    let filteredCourses = results[1].value.data.results.filter((course)=> lookUpIds.has(course.course_id));
+    // let filteredCourses = results[1].value.data.results.filter((course)=> lookUpIds.has(course.course_id));
+  const filteredCourses = results[1].value.data.results.filter(course => {
+  if (!lookUpIds.has(course.course_id)) return false;
+
+  const raw = course.course_first_completion_date;
+  if (!raw) return true; // keep if no completion date
+
+  const dt = raw instanceof Date ? raw : new Date(raw);
+  if (isNaN(dt)) return true; // keep if can't parse
+
+  return dt.getFullYear() > 2024; // keep only if year is greater than 2024
+});
     console.log("filtered",filteredCourses)
     genAIHours = filteredCourses.reduce((acc,course)=> course.num_video_consumed_minutes + acc  ,0)
   } else {
