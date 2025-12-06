@@ -103,11 +103,13 @@ const fetchUdemyData = async (query) => {
 
   return dt.getFullYear() > 2024; // keep only if year is greater than 2024
 });
-    
+
+  if(response.data1.results.length > 0){
     response.data1.results[0].excludedCourse = []
     filteredCourses.map((course)=>{
       response.data1.results[0].excludedCourse.push({course_title: course.course_title, num_video_consumed_minutes: course.num_video_consumed_minutes})
     })
+  }
     
     console.log("filtered",filteredCourses)
     genAIHours = filteredCourses.reduce((acc,course)=> course.num_video_consumed_minutes + acc  ,0)
