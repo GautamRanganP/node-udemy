@@ -103,6 +103,12 @@ const fetchUdemyData = async (query) => {
 
   return dt.getFullYear() > 2024; // keep only if year is greater than 2024
 });
+    
+    response.data1.results[0].excludedCourse = []
+    filteredCourses.map((course)=>{
+      response.data1.results[0].excludedCourse.push({course_title: course.course_title, num_video_consumed_minutes: course.num_video_consumed_minutes})
+    })
+    
     console.log("filtered",filteredCourses)
     genAIHours = filteredCourses.reduce((acc,course)=> course.num_video_consumed_minutes + acc  ,0)
   } else {
@@ -112,6 +118,8 @@ const fetchUdemyData = async (query) => {
     });
   }
   if(response.data1.results.length > 0){
+   response.data1.results[0].totalMinutes = 0 
+   response.data1.results[0].totalMinutes = response.data1.results[0].num_video_consumed_minutes
    let sub = response.data1.results[0].num_video_consumed_minutes - genAIHours 
    response.data1.results[0].num_video_consumed_minutes = sub > 0 ? sub : 0
   }
