@@ -62,8 +62,8 @@ const base64Credentials = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CL
 //   return response.data;
 // };
 const fetchUdemyData = async (query) => {
-  const url1 = `${process.env.UDEMY_API_URL}?from_date=2025-01&to_date=2025-12&user_email=${query}`;
-  const url2 = `${process.env.UDEMY_COURSE_API_URL}?from_date=2025-01&to_date=2025-12&user_email=${query}`;
+  const url1 = `${process.env.UDEMY_API_URL}?from_date=2025-01&to_date=2026-01&user_email=${query}`;
+  const url2 = `${process.env.UDEMY_COURSE_API_URL}?from_date=2025-01&to_date=2026-01&user_email=${query}`;
   const headers = {
     Authorization: `Basic ${base64Credentials}`,
   };
