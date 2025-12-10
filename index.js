@@ -250,11 +250,11 @@ app.get("/learninghours", async (req, res) => {
     }
   try {
     // Check if data is already cached in Redis
-    // const cachedData = await redis.get(email);
-    // if (cachedData) {
-    //   console.log("Serving from cache");
-    //   return res.json(JSON.parse(cachedData));
-    // }
+    const cachedData = await redis.get(email);
+    if (cachedData) {
+      console.log("Serving from cache");
+      return res.json(JSON.parse(cachedData));
+    }
     // Fetch fresh data from Udemy API
     console.log("Fetching from Udemy API...");
     const data = await fetchUdemyData(email);
